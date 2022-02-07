@@ -1,0 +1,952 @@
+# To do List:
+#
+# Gui Click Events
+
+command /skcreator:
+    permission: skcreator.use 
+    permission message: &cYou do not have the required permission to use this!
+    trigger:
+        set metadata tag "skcreatorhome" of player to chest inventory with 6 rows named "SkCreator/Home"
+        set slot (integers from 0 to 53) of metadata tag "skcreatorhome" of player to black stained glass pane named "&6" with lore ""
+        
+        # Create, Delete and Reload actions
+        set slot 11 of metadata tag "skcreatorhome" of player to paper named "&aCreate Script" with lore "", "&7Upon clicking this you will", "&7be asked to type out", "&7the name of your new script", "&7in the chat to create it!", "" and "&eClick to create a command"
+        set slot 13 of metadata tag "skcreatorhome" of player to lava bucket named "&cDelete Script" with lore "", "&7Upon clicking this you will", "&7be asked to type out", "&7the name of the script", "&7file that you wanna delete!", "" and "&eClick to delete a script"
+        set slot 15 of metadata tag "skcreatorhome" of player to beacon named "&eReload Script" with lore "", "&7Upon clicking this you will", "&7be asked to type out", "&7the name of a script", "&7to reload it!", "" and "&eClick to reload a script"
+
+        # Currently available actions
+        set slot 28 of metadata tag "skcreatorhome" of player to command block named "&aCommand Creator" with lore "", "&7Create commands with ease", "&7with no issues or coding", "&7knowledge needed for this!", "" and "&eClick to open"
+        set slot 29 of metadata tag "skcreatorhome" of player to chest named "&aGUI Creator" with lore "", "&7Create guis with ease", "&7with no issues or coding", "&7knowledge needed for this!", "" and "&eClick to open"
+        set slot 30 of metadata tag "skcreatorhome" of player to player's skull named "&aPlayer Events" with lore "", "&7Create player events with ease", "&7and no issues or coding needed!", "" and "&eClick to open"
+        
+        # Coming Soon things
+        set slot 31 of metadata tag "skcreatorhome" of player to red stained glass pane named "&cComing Soon" with lore "" and "&cThis feature is coming soon!"
+        set slot 32 of metadata tag "skcreatorhome" of player to red stained glass pane named "&cComing Soon" with lore "" and "&cThis feature is coming soon!"
+        set slot 33 of metadata tag "skcreatorhome" of player to red stained glass pane named "&cComing Soon" with lore "" and "&cThis feature is coming soon!"
+        set slot 34 of metadata tag "skcreatorhome" of player to red stained glass pane named "&cComing Soon" with lore "" and "&cThis feature is coming soon!"
+        set slot 37 of metadata tag "skcreatorhome" of player to red stained glass pane named "&cComing Soon" with lore "" and "&cThis feature is coming soon!"
+        set slot 38 of metadata tag "skcreatorhome" of player to red stained glass pane named "&cComing Soon" with lore "" and "&cThis feature is coming soon!"
+        set slot 39 of metadata tag "skcreatorhome" of player to red stained glass pane named "&cComing Soon" with lore "" and "&cThis feature is coming soon!"
+        set slot 40 of metadata tag "skcreatorhome" of player to red stained glass pane named "&cComing Soon" with lore "" and "&cThis feature is coming soon!"
+        set slot 41 of metadata tag "skcreatorhome" of player to red stained glass pane named "&cComing Soon" with lore "" and "&cThis feature is coming soon!"
+        set slot 42 of metadata tag "skcreatorhome" of player to red stained glass pane named "&cComing Soon" with lore "" and "&cThis feature is coming soon!"
+        set slot 43 of metadata tag "skcreatorhome" of player to red stained glass pane named "&cComing Soon" with lore "" and "&cThis feature is coming soon!"
+
+        open (metadata tag "skcreatorhome" of player) to player 
+
+on inventory click:
+    if event-inventory = (metadata tag "skguiaddonscreator" of player):
+        cancel event 
+        if index of event-slot is 38:
+            send "&9SkCreator> &7Resetting the selected items..."
+            delete {guiclickevents}
+            delete {guiclickmsg}
+            delete {guiclickclose}
+            send "&9SkCreator> &7All the selected items were reset! head back into that menu to see if its reset!"
+            open (metadata tag "skguicreator" of player) to player
+        if index of event-slot is 40:
+            open (metadata tag "skguicreator" of player) to player
+        if index of event-slot is 10:
+            if metadata "guiclickevents" of player is not set:
+                close player's inventory 
+                send "&9SkCreator> &7Please type the slot you want to use for the clicking method in the chat:"
+                set metadata "guiclickevents" of player to true
+            else:
+                send "&9SkCreator> &7You are already adding in a click event!" 
+        if index of event-slot is 11:
+            if metadata "guiclickclose" of player is not set:
+                close player's inventory 
+                send "&9SkCreator> &7Please type the slot you want to use for the closing method in the chat:"
+                set metadata "guiclickclose" of player to true
+            else:
+                send "&9SkCreator> &7You are already adding in a close method!" 
+        if index of event-slot is 12:
+            if metadata "guiclickmsg" of player is not set:
+                close player's inventory 
+                send "&9SkCreator> &7Please type the msg you want to use for the gui click method in the chat:"
+                set metadata "guiclickmsg" of player to true
+            else:
+                send "&9SkCreator> &7You are already adding in a message method!" 
+    if event-inventory = (metadata tag "skguicreator" of player):
+        cancel event 
+        if index of event-slot is 25:
+            set metadata tag "skguiaddonscreator" of player to chest inventory with 6 rows named "Create/GUI Click Events/Create"
+            set slot (integers from 0 to 53) of metadata tag "skguiaddonscreator" of player to black stained glass pane named "&6" with lore ""
+            
+            set slot 10 of metadata tag "skguiaddonscreator" of player to enchanted book named "&aClicked Slot" with lore "", "&7Upon clicking this you will", "&7be asked to type out a slot!", "&7number on where you want", "&7to execute things with!", "", "&7Slot: &b%{guiclickevents}%", "" and "&eClick to create a clicked slot method"
+            set slot 11 of metadata tag "skguiaddonscreator" of player to barrier named "&aClose Event" with lore "", "&7Upon clicking this you will", "&7be asked to type out a slot!", "&7number on where you want", "&7to execute the close event!", "", "&7Slot: &b%{guiclickclose}%", "" and "&eClick to create a close gui method"
+            set slot 12 of metadata tag "skguiaddonscreator" of player to paper named "&aMessage Event" with lore "", "&7Upon clicking this you will", "&7be asked to type out a message!", "&7to be sent to the user", "", "&7Message: &b%{guiclickmsg}%", "" and "&eClick to create a gui message method"
+            
+            
+            set slot 38 of metadata tag "skguiaddonscreator" of player to redstone block named "&cReset" with lore "", "&7This will reset everything", "&7that you put into the", "&7GUI Click Events creator!", "", "&c&lWARNING! &cThere is no confirmation", "&cand you wont get this back!", "" and "&eClick to reset"
+            
+            set slot 40 of metadata tag "skguiaddonscreator" of player to arrow named "&aBack A Page" with lore "", "&7Current Directory:", "  &7- &bSkCreator/Home/GUI Creator/Create/GUI Click Events/Create", "", "&7Return Directory:", "  &7- &bSkCreator/Home/GUI Creator/Create", "" and "&eClick to return"
+            
+            open (metadata tag "skguiaddonscreator" of player) to player
+        if index of event-slot is 42:
+            if {guiscript} is set:
+                close player's inventory 
+                send "&9SkCreator> &7Creating the GUI with all its attributes please wait..."
+                append " " to file path "plugins/Skript/scripts/%{guiscript}%.sk"
+                wait 1 second
+                if {guiname} is set:
+                    if {guiid} is set:
+                        append "        set metadata tag ""%{guiid}%"" of player to chest inventory with %{guislots}% rows named ""%{guiname}%""" to file path "plugins/Skript/scripts/%{guiscript}%.sk"
+                wait 1 second 
+                if {guifiller} is set:
+                    append "        set slot (integers from 0 to %{guifiller}%) of metadata tag ""%{guiid}%"" of player to black stained glass pane named ""&6"" with lore """"" to file path "plugins/Skript/scripts/%{guiscript}%.sk"
+                wait 1 second 
+                if {guiclose} is set:
+                    append "        set slot %{guicloseslot}% of metadata tag ""%{guiid}%"" of player to barrier named ""&cClose"" with lore """"" to file path "plugins/Skript/scripts/%{guiscript}%.sk"
+                wait 1 second
+                if {guiitem} is set:
+                    if {guiitemlore} is set:
+                        if {guiitemname} is set:
+                            append "        set slot %{guiitemslot}% of metadata tag ""%{guiid}%"" of player to %{guiitem}% named ""%{guiitemname}%"" with lore %{guiitemlore}%" to file path "plugins/Skript/scripts/%{guiscript}%.sk"
+                        else: 
+                            send "&9SkCreator> &7Could not create a GUI item!! You don't have a lore, or item name or item set!"
+                    else: 
+                        send "&9SkCreator> &7Could not create a GUI item!! You don't have a lore, or item name or item set!"
+                wait 1 second
+                if {guiopen} is set:
+                    append "        open (metadata tag ""%{guiid}%"" of player) to player" to file path "plugins/Skript/scripts/%{guiscript}%.sk"
+                wait 1 second 
+                if {guiclickevent} is set:
+                    append " " to file path "plugins/Skript/scripts/%{guiscript}%.sk"
+                    wait 1 second 
+                    append "on inventory click:" to file path "plugins/Skript/scripts/%{guiscript}%.sk"
+                    wait 1 second 
+                    append "    if event-inventory = (metadata tag ""%{guiid}%"" of player):" to file path "plugins/Skript/scripts/%{guiscript}%.sk"
+                    wait 1 second 
+                    append "        cancel event" to file path "plugins/Skript/scripts/%{guiscript}%.sk"
+                wait 1 second 
+                if {guiclickevents} is set:
+                    append "        if index of event-slot is %{guiclickevents}%:" to file path "plugins/Skript/scripts/%{guiscript}%.sk"
+                wait 1 second 
+                if {guiclickclose} is set:
+                    append "            close player's inventory" to file path "plugins/Skript/scripts/%{guiscript}%.sk"
+                wait 1 second 
+                if {guiclickmsg} is set:
+                    append "            send ""%{guiclickmsg}%""" to file path "plugins/Skript/scripts/%{guiscript}%.sk"
+                wait 1 second 
+                send "&9SkCreator> &7All data was shipped off to the script!"
+                delete {guiid}
+                delete {guiname}
+                delete {guislots}
+                delete {guifiller}
+                delete {guiclose}
+                delete {guicloseslot}
+                delete {guiscript}
+                delete {guiitem}
+                delete {guiitemslot}
+                delete {guiitemname}
+                delete {guiitemlore}
+                delete {guiopen}
+                delete {guiclickevents}
+                delete {guiclickclose}
+                delete {guiclickmsg}
+                open (metadata tag "skcreatorhome" of player) to player
+            else:
+                send "&9SkCreator> &7You have not specified a script!"
+
+        if index of event-slot is 40:
+            send "&9SkCreator> &7Sending you to the home directory!"
+            open (metadata tag "skcreatorhome" of player) to player 
+        if index of event-slot is 38:
+            send "&9SkCreator> &7Resetting the GUI Creator!"
+            delete {guiid}
+            delete {guiname}
+            delete {guislots}
+            delete {guifiller}
+            delete {guiclose}
+            delete {guicloseslot}
+            delete {guiscript}
+            delete {guiitem}
+            delete {guiitemslot}
+            delete {guiitemname}
+            delete {guiitemlore}
+            delete {guiopen}
+            delete {guiclickevent}
+            delete {guiclickslot}
+            delete {guiclickevents}
+            delete {guiclickclose}
+            delete {guiclickmsg}
+            send "&9SkCreator> &7Reset the GUI Creator!"
+            wait 5 ticks 
+            send "&c&oYou need to reopen the GUI Creator!"
+            open (metadata tag "skcreatorhome" of player) to player 
+
+        if index of event-slot is 10:
+            if metadata "guiname" of player is not set:
+                close player's inventory 
+                send "&9SkCreator> &7Please type the gui name you want to give the gui in the chat:"
+                set metadata "guiname" of player to true
+            else:
+                send "&9SkCreator> &7You are already setting a gui name!"
+        if index of event-slot is 11:
+            if metadata "guislots" of player is not set:
+                close player's inventory 
+                send "&9SkCreator> &7Please type the amount of rows you want the gui to have in the chat:"
+                set metadata "guislots" of player to true
+            else:
+                send "&9SkCreator> &7You are already setting a gui name!"
+        if index of event-slot is 12:
+            if metadata "guifiller" of player is not set:
+                close player's inventory 
+                send "&9SkCreator> &7Please type the amount of slots you want to get filled with the filler in the chat:"
+                set metadata "guifiller" of player to true
+            else:
+                send "&9SkCreator> &7You are already setting a gui name!"
+        if index of event-slot is 14:
+            if metadata "guicloseslot" of player is not set:
+                close player's inventory 
+                send "&9SkCreator> &7Please type the slot you wish to set the GUI Closer in with in the chat:"
+                set metadata "guicloseslot" of player to true
+            else:
+                send "&9SkCreator> &7You are already setting a gui name!"
+        if index of event-slot is 16:
+            if metadata "guiscript" of player is not set:
+                close player's inventory 
+                send "&9SkCreator> &7Please type the script you wish to set the GUI in with in the chat:"
+                set metadata "guiscript" of player to true
+            else:
+                send "&9SkCreator> &7You are already setting a gui name!"
+        if index of event-slot is 15:
+            if metadata "guiid" of player is not set:
+                close player's inventory 
+                send "&9SkCreator> &7Please type the GUI Id you want this GUI to have in the chat:"
+                set metadata "guiid" of player to true
+            else:
+                send "&9SkCreator> &7You are already setting a gui id!"
+        if index of event-slot is 19:
+            if metadata "guiitem" of player is not set:
+                close player's inventory 
+                send "&9SkCreator> &7Please type the GUI ITEM you want this GUI to have in the chat:"
+                set metadata "guiitem" of player to true
+            else:
+                send "&9SkCreator> &7You are already setting a gui item!"
+        if index of event-slot is 20:
+            if metadata "guiitemname" of player is not set:
+                close player's inventory 
+                send "&9SkCreator> &7Please type the GUI ITEM name you want this GUI item to have in the chat:"
+                set metadata "guiitemname" of player to true
+            else:
+                send "&9SkCreator> &7You are already setting a gui item name!"
+        if index of event-slot is 21:
+            if metadata "guiitemslot" of player is not set:
+                close player's inventory 
+                send "&9SkCreator> &7Please type the GUI ITEM Slot you want this GUI item to be in with in the chat:"
+                set metadata "guiitemslot" of player to true
+            else:
+                send "&9SkCreator> &7You are already setting a gui item slot!"
+        if index of event-slot is 22:
+            if metadata "guiitemlore" of player is not set:
+                close player's inventory 
+                send "&9SkCreator> &7Please type the GUI ITEM Lore you want this GUI item to have with in the chat:"
+                set metadata "guiitemlore" of player to true
+                send ""
+                send "&7Example: &d""Test"", ""&9Item"" and ""&bLore!"""
+            else:
+                send "&9SkCreator> &7You are already setting a gui item lore!"
+        if index of event-slot is 13:
+            open (metadata tag "skcreatorhome" of player) to player 
+            set {guiclose} to "True"
+            send "&9SkCreator> &7Added the GUI Close feature!"
+            send ""
+            send "&c&oReopen the GUI to make sure it works!"
+        if index of event-slot is 23:
+            open (metadata tag "skcreatorhome" of player) to player 
+            set {guiopen} to "True"
+            send "&9SkCreator> &7Added the GUI Open feature!"
+            send ""
+            send "&c&oReopen the GUI to make sure it works!"
+        if index of event-slot is 24:
+            open (metadata tag "skcreatorhome" of player) to player 
+            set {guiclickevent} to "True"
+            send "&9SkCreator> &7Added the cancel gui clicks feature!"
+            send ""
+            send "&c&oReopen the GUI to make sure it works!"
+
+    if event-inventory = (metadata tag "skcreatorhome" of player):
+        cancel event
+        if index of event-slot is 11:
+            if metadata "createscript" of player is not set:
+                close player's inventory 
+                send "&9SkBooter> &7Booting up the creating system please wait..."
+                wait 2 seconds 
+                send "&9SkBooter> &7Booted up!"
+                send ""
+                send "&aWhat is the name of your script? &7&oDon't include .sk!"
+                set metadata "createscript" of player to true 
+            else:
+                send "&9SkCreator> &7You are already creating a script!"
+        if index of event-slot is 13:
+            if metadata "deletescript" of player is not set:
+                close player's inventory 
+                send "&9SkBooter> &7Booting up the trash can system please wait..."
+                wait 2 seconds 
+                send "&9SkBooter> &7Booted up!"
+                send ""
+                send "&aWhat is the name of your script you want to delete? &7&oDon't include .sk!"
+                set metadata "deletescript" of player to true 
+            else:
+                send "&9SkCreator> &7You are already deleting a script!"
+        if index of event-slot is 15:
+            if metadata "reloadscript" of player is not set:
+                close player's inventory 
+                send "&9SkBooter> &7Booting up the reload system please wait..."
+                wait 2 seconds 
+                send "&9SkBooter> &7Booted up!"
+                send ""
+                send "&aWhat is the name of your script you want to reload? &7&oDon't include .sk!"
+                set metadata "reloadscript" of player to true 
+            else:
+                send "&9SkCreator> &7You are already reloading a script!"
+
+        if index of event-slot is 29:
+            set metadata tag "skguicreator" of player to chest inventory with 6 rows named "Home/GUI Creator/Create"
+            set slot (integers from 0 to 53) of metadata tag "skguicreator" of player to black stained glass pane named "&6" with lore ""
+            set slot 40 of metadata tag "skguicreator" of player to arrow named "&aBack A Page" with lore "", "&7Current Directory:", "  &7- &bSkCreator/Home/GUI Creator/Create", "", "&7Return Directory:", "  &7- &bSkCreator/Home", "" and "&eClick to return"
+            
+            set slot 10 of metadata tag "skguicreator" of player to chest named "&aGUI Name" with lore "", "&7You will be asked in chat", "&7to say the gui name", "&7you wish for the gui to have!", "", "&7Name: &b%{guiname}%", "" and "&eClick to set name"
+            set slot 11 of metadata tag "skguicreator" of player to ender chest named "&aGUI Slots" with lore "", "&7You will be asked in chat", "&7to say the amount of rows", "&7you wish for the gui to have!", "", "&c&lNOTE! &cMax is 6 rows, meaning", "&cYou can only say numbers 1-6", "&cto not get an error!", "", "&7Rows: &b%{guislots}%", "" and "&eClick to set rows"
+            set slot 12 of metadata tag "skguicreator" of player to paper named "&aGUI Filler" with lore "", "&7You will be asked in chat", "&7to say the amount of slots", "&7you wish for the gui filler to fill!", "", "&c&lNOTE! &cMax is 53 slots", "", "&7Slots To Fill: &b%{guifiller}%", "" and "&eClick to set rows"
+            set slot 13 of metadata tag "skguicreator" of player to barrier named "&aGUI Close" with lore "", "&7Enabled: &b%{guiclose}%", "" and "&eClick to enable"
+            set slot 14 of metadata tag "skguicreator" of player to diamond named "&aGUI Close Slot" with lore "", "&7You will be asked in chat", "&7what slot you want this", "&7GUI Closer to be in!", "", "&7Slot: &b%{guicloseslot}%", "" and "&eClick to set slot"
+            set slot 15 of metadata tag "skguicreator" of player to emerald named "&aGUI ID" with lore "", "&7You will be asked in chat", "&7what GUI ID you want this", "&7GUI to have!", "", "&7Gui ID: &b%{guiid}%", "" and "&eClick to set Gui ID"
+            
+            set slot 16 of metadata tag "skguicreator" of player to bookshelf named "&aScript Name" with lore "", "&7You will be asked in chat", "&7to name the script you created earlier!", "", "&7File: &b%{guiscript}%", "" and "&eClick to set the file name"
+            
+            set slot 19 of metadata tag "skguicreator" of player to stone named "&aGUI Item" with lore "", "&7You will be asked in chat", "&7what GUI ITEM you want this", "&7GUI to have!", "&7You can put blocks", "&7or anything really!", "", "&7Gui Item: &b%{guiitem}%", "" and "&eClick to set Gui Item"
+            set slot 20 of metadata tag "skguicreator" of player to stick named "&aGUI Item Name" with lore "", "&7You will be asked in chat", "&7what name you want this", "&7Item to have!", "", "&7Gui Item Name: &b%{guiitemname}%", "" and "&eClick to set Gui Item Name"
+            set slot 21 of metadata tag "skguicreator" of player to carrot named "&aGUI Item Slot" with lore "", "&7You will be asked in chat", "&7what slot you want this", "&7Item to be in!", "", "&7Gui Item Slot: &b%{guiitemslot}%", "" and "&eClick to set Gui Item Slot"
+            set slot 22 of metadata tag "skguicreator" of player to potato named "&aGUI Item Lore" with lore "", "&7You will be asked in chat", "&7what you want this", "&7Item lore to have!", "", "&7Gui Item Lore: &b%{guiitemlore}%", "", "&7Example: ""&9Use this today!"", ""&6Cool right?"", ""&dItem Lore"" and ""&7Test""", "" and "&eClick to set Gui Item Lore"
+            set slot 23 of metadata tag "skguicreator" of player to end portal frame named "&aGUI Open" with lore "", "&7Enabled: &b%{guiopen}%", "" and "&eClick to enable"
+            set slot 24 of metadata tag "skguicreator" of player to ender pearl named "&aCancel GUI Clicks" with lore "", "&7Enabled: &b%{guiclickevent}%", "" and "&eClick to enable"
+            set slot 25 of metadata tag "skguicreator" of player to eye of ender named "&aGUI Click Events" with lore "", "&7This will bring up another", "&7menu with all the gui click", "&7events currently supported in-game!", "" and "&eClick to view click events"
+
+
+            set slot 38 of metadata tag "skguicreator" of player to redstone block named "&cReset" with lore "", "&7This will reset everything", "&7that you put into the", "&7GUI Creator!", "", "&c&lWARNING! &cThere is no confirmation", "&cand you wont get this back!", "" and "&eClick to reset"
+            set slot 42 of metadata tag "skguicreator" of player to emerald block named "&aCreate GUI" with lore "", "&7This will create the GUI", "&7with the info you put in!", "", "&c&lNOTE! &cYou don't need to put some stuff", "&cAs those are optional!!", "" and "&7Run Down:", "  &7- &b%{guiname}%", "  &7- &b%{guislots}%", "  &7- &b%{guifiller}%", "  &7- &b%{guiclose}%", "  &7- &b%{guicloseslot}%", "  &7- &b%{guiid}%", "", "&7Misc:", "  &7- &b%{guiitem}%", "  &7- &b%{guiitemslot}%", "  &7- &b%{guiitemname}%", "  &7- &b%{guiitemlore}%", "  &7- &b%{guiopen}%", "  &7- &b%{guiclickevent}%", "", "&7GUI Click Events:", "  &7- &b%{guiclickevents}%", "  &7- &b%{guiclickclose}%", "  &7- &b%{guiclickmsg}%", "", "&7File:", "  &7- &b%{guiscript}%.sk", "" and "&eClick to create" 
+            
+            open (metadata tag "skguicreator" of player) to player
+
+        if index of event-slot is 28:
+            set metadata tag "skcmdcreator" of player to chest inventory with 6 rows named "Home/Command Creator/Create"
+            set slot (integers from 0 to 53) of metadata tag "skcmdcreator" of player to black stained glass pane named "&6" with lore ""
+            set slot 10 of metadata tag "skcmdcreator" of player to command block named "&aCommand Name" with lore "", "&7You will be asked in chat", "&7to come up with a command", "&7name to use for your command!", "", "&7Command: &b%{command}%", "", "&c&lNOTE! &cDo not add in a /", "" and "&eClick to set command name"
+            set slot 11 of metadata tag "skcmdcreator" of player to paper named "&aCommand Permission" with lore "", "&7You will be asked in chat", "&7to come up with a permission", "&7node to use for your command!", "", "&7Permission: &b%{permission}%", "" and "&eClick to set a permission"
+            set slot 12 of metadata tag "skcmdcreator" of player to paper named "&aCommand Permission Message" with lore "", "&7You will be asked in chat", "&7to come up with a permission", "&7message to use for your command!", "", "&7Message: &b%{permissionmsg}%", "" and "&eClick to set a permission message"
+            set slot 13 of metadata tag "skcmdcreator" of player to paper named "&aCommand Cooldown" with lore "", "&7You will be asked in chat", "&7to come up with a time", "&7to use for your command cooldown!", "", "&7Cooldown: &b%{cooldown}%", "", "&c&lNOTE! &cDon't forget seconds, minutes etc", "" and "&eClick to set a cooldown"
+            set slot 14 of metadata tag "skcmdcreator" of player to paper named "&aCommand Cooldown Message" with lore "", "&7You will be asked in chat", "&7to come up with a cooldown", "&7message for your command cooldown!", "", "&7Message: &b%{cooldownmsg}%", "" and "&eClick to set a cooldown message"
+            set slot 15 of metadata tag "skcmdcreator" of player to paper named "&aCommand Trigger" with lore "" and "&7Default: &aTRUE"
+            set slot 16 of metadata tag "skcmdcreator" of player to bookshelf named "&aScript Name" with lore "", "&7You will be asked in chat", "&7to name the script you created earlier!", "", "&7File: &b%{script}%", "" and "&eClick to set the file name"
+            set slot 20 of metadata tag "skcmdcreator" of player to book named "&aMessages" with lore "" and "&7You will be asked", "&7in the chat to come", "&7up with a message to", "&7send to the user who runs", "&7the command!", "", "&7Message: &b%{cmdmsg}%", "" and "&eClick to set"
+            set slot 21 of metadata tag "skcmdcreator" of player to book named "&aBroadcasts" with lore "" and "&7You will be asked", "&7in the chat to come", "&7up with a broadcast to", "&7send to the server who runs", "&7the command!", "", "&7Message: &b%{broadcast}%", "", "&c&lNOTE! &cThis is a beta", "&cfeature at the moment!", "" and "&eClick to set"
+            set slot 22 of metadata tag "skcmdcreator" of player to stone named "&aItem Without Name" with lore "" and "&7You will be asked", "&7in the chat to come", "&7up with an item to", "&7give to the executor who runs", "&7the command!", "", "&7Item: &b%{item}%", "" and "&eClick to set item"
+            set slot 23 of metadata tag "skcmdcreator" of player to apple named "&aItem With Name" with lore "" and "&7You will be asked", "&7in the chat to come", "&7up with an item and name to", "&7give to the executor who runs", "&7the command!", "", "&7Item: &b%{item2}%", "", "&7Example: &bstone with name ""&dTest""", "" and "&eClick to set item"
+
+            set slot 38 of metadata tag "skcmdcreator" of player to redstone block named "&cReset" with lore "", "&7This will reset everything", "&7that you put into the", "&7command creator!", "", "&c&lWARNING! &cThere is no confirmation", "&cand you wont get this back!", "" and "&eClick to reset"
+            set slot 42 of metadata tag "skcmdcreator" of player to emerald block named "&aCreate Command" with lore "", "&7This will create the command", "&7with the info you put in!", "", "&c&lNOTE! &cYou don't need to put a cooldown", "&cor a permission! Those are optional!!", "&cSame with giving items", "&ceven items with names!", "" and "&7Run Down:", "  &7- &b/%{command}%", "  &7- &b%{permission}%", "  &7- &b%{permissionmsg}%", "  &7- &b%{cooldown}%", "  &7- &b%{cooldownmsg}%", "  &7- &bTrigger:", "", "&7Misc:", "  &7- &b%{cmdmsg}%", "  &7- &b%{broadcast}%", "  &7- &b%{item}%", "  &7- &b%{item2}%", "", "&7File:", "  &7- &b%{script}%.sk", "" and "&eClick to create" 
+            
+            set slot 40 of metadata tag "skcmdcreator" of player to arrow named "&aBack A Page" with lore "", "&7Current Directory:", "  &7- &bSkCreator/Home/Command Creator/Create", "", "&7Return Directory:", "  &7- &bSkCreator/Home", "" and "&eClick to return"
+            
+            open (metadata tag "skcmdcreator" of player) to player
+
+        if index of event-slot is 30:
+            set metadata tag "skpecreator" of player to chest inventory with 6 rows named "Home/Player Events/Create"
+            set slot (integers from 0 to 53) of metadata tag "skpecreator" of player to black stained glass pane named "&6" with lore ""
+            set slot 10 of metadata tag "skpecreator" of player to enchanted book named "&aJoin Event" with lore "", "&7Clicking this will add it", "&7to your progress of events!", "" and "&eClick to create event"
+            set slot 11 of metadata tag "skpecreator" of player to book named "&aJoin Message" with lore "", "&7You will be asked in chat", "&7to come up with a join", "&7message to use for your join event!", "", "&7Message: &b%{joinmsg}%", "" and "&eClick to send a join message"
+            set slot 12 of metadata tag "skpecreator" of player to experience bottle named "&aJoin Action Message" with lore "", "&7You will be asked in chat", "&7to come up with a join action", "&7message to use for your join event!", "", "&7Message: &b%{joinactionmsg}%", "", "&7Example: [&a&l+&7] %player%", "" and "&eClick to set a join message"
+            
+            set slot 13 of metadata tag "skpecreator" of player to enchanting table named "&aFirst Join Event" with lore "", "&7Clicking this will add it", "&7to your progress of events!", "" and "&eClick to create event"
+            set slot 14 of metadata tag "skpecreator" of player to diamond named "&aFirst Join Message" with lore "", "&7You will be asked in chat", "&7to come up with a first join", "&7message to use for your first join event!", "", "&7Message: &b%{firstjoinmsg}%", "" and "&eClick to set a first join message"
+            set slot 15 of metadata tag "skpecreator" of player to emerald named "&aFirst Join Action Message" with lore "", "&7You will be asked in chat", "&7to come up with a first join action", "&7message to use for your join event!", "", "&7Message: &b%{firstjoinactionmsg}%", "", "&7Example: [&a&l+&7] %player%", "" and "&eClick to set a join message"
+            
+            set slot 20 of metadata tag "skpecreator" of player to paper named "&aLeave Event" with lore "", "&7Clicking this will add it", "&7to your progress of events!", "" and "&eClick to create event"
+            set slot 21 of metadata tag "skpecreator" of player to diamond sword named "&aLeave Event Action Message" with lore "", "&7You will be asked in chat", "&7to come up with a leave action", "&7message to use for your leave event!", "", "&7Message: &b%{leavemsgevent}%", "", "&7Example: [&c&l-&7] %player%", "" and "&eClick to set a join message"
+            
+            set slot 22 of metadata tag "skpecreator" of player to player's skull named "&aDeath Event" with lore "", "&7Clicking this will add it", "&7to your progress of events!", "" and "&eClick to create event"
+            set slot 23 of metadata tag "skpecreator" of player to golden sword named "&aDeath Event Action Message" with lore "", "&7You will be asked in chat", "&7to come up with a death action", "&7message to use for your death event!", "", "&7Message: &b%{deathmsg}%", "", "&7Example: &c&lDEATH! &c%player%", "" and "&eClick to set a death message"
+            
+            set slot 16 of metadata tag "skpecreator" of player to bookshelf named "&aScript Name" with lore "", "&7You will be asked in chat", "&7to name the script you created earlier!", "", "&7File: &b%{joinscript}%", "" and "&eClick to set the file name"
+            
+            set slot 38 of metadata tag "skpecreator" of player to redstone block named "&cReset" with lore "", "&7This will reset everything", "&7that you put into the", "&7player events creator!", "", "&c&lWARNING! &cThere is no confirmation", "&cand you wont get this back!", "" and "&eClick to reset"
+            set slot 42 of metadata tag "skpecreator" of player to emerald block named "&aCreate Events" with lore "", "&7This will create the events", "&7with the info you put in!", "", "&7Join Events:", "  &7- &b%{joinevent}%", "  &7- &b%{joinmsg}%", "  &7- &b%{joinactionmsg}%", "", "&7First Join Events:", "  &7- &b%{firstjoinevent}%", "  &7- &b%{firstjoinmsg}%", "  &7- &b%{firstjoinactionmsg}%", "", "&7Leave Events:", "  &7- &b%{leaveevent}%", "  &7- &b%{leavemsgevent}%", "", "&7Death Events:", "  &7- &b%{deathevent}%", "  &7- &b%{deathmsg}%", "", "&7File:", "  &7- &b%{joinscript}%.sk", "" and "&eClick to create" 
+            
+            set slot 40 of metadata tag "skpecreator" of player to arrow named "&aBack A Page" with lore "", "&7Current Directory:", "  &7- &bSkCreator/Home/Player Events/Create", "", "&7Return Directory:", "  &7- &bSkCreator/Home", "" and "&eClick to return"
+            
+            open (metadata tag "skpecreator" of player) to player
+
+    if event-inventory = (metadata tag "skpecreator" of player):
+        cancel event
+        if index of event-slot is 42:
+            if {joinscript} is set:
+                close player's inventory 
+                send "&9SkCreator> &7Creating the player events with all its attributes please wait..."
+                append " " to file path "plugins/Skript/scripts/%{joinscript}%.sk"
+                wait 1 second
+                if {joinevent} is set:
+                    append "on join:" to file path "plugins/Skript/scripts/%{joinscript}%.sk"
+                wait 1 second
+                if {joinactionmsg} is set:
+                    append "    set join message to ""%{joinactionmsg}%""" to file path "plugins/Skript/scripts/%{joinscript}%.sk"
+                wait 1 second
+                if {joinmsg} is set:
+                    append "    send ""%{joinmsg}%""" to file path "plugins/Skript/scripts/%{joinscript}%.sk"
+                wait 1 second
+                append " " to file path "plugins/Skript/scripts/%{joinscript}%.sk"
+                wait 1 second 
+                if {firstjoinevent} is set:
+                    append "on first join:" to file path "plugins/Skript/scripts/%{joinscript}%.sk"
+                wait 1 second 
+                if {firstjoinmsg} is set:
+                    append "    send ""%{firstjoinmsg}%""" to file path "plugins/Skript/scripts/%{joinscript}%.sk"
+                wait 1 second 
+                if {firstjoinactionmsg} is set:
+                    append "    set join message to ""%{firstjoinactionmsg}%""" to file path "plugins/Skript/scripts/%{joinscript}%.sk"
+                wait 1 second 
+                append " " to file path "plugins/Skript/scripts/%{joinscript}%.sk"
+                wait 1 second 
+                if {leaveevent} is set:
+                    append "on disconnect:" to file path "plugins/Skript/scripts/%{joinscript}%.sk"
+                wait 1 second
+                if {leavemsgevent} is set:
+                    append "    set leave message to ""%{leavemsgevent}%""" to file path "plugins/Skript/scripts/%{joinscript}%.sk"
+                wait 1 second 
+                append " " to file path "plugins/Skript/scripts/%{joinscript}%.sk"
+                wait 1 second 
+                if {deathevent} is set:
+                    append "on death:" to file path "plugins/Skript/scripts/%{joinscript}%.sk"
+                wait 1 second 
+                if {deathmsg} is set:
+                    append "    set death message to ""%{deathmsg}%""" to file path "plugins/Skript/scripts/%{joinscript}%.sk"
+                wait 1 second
+                send "&9SkCreator> &7All data was shipped off to the script!"
+                delete {joinmsg}
+                delete {joinactionmsg}
+                delete {firstjoinmsg}
+                delete {firstjoinactionmsg}
+                delete {joinscript}
+                delete {joinevent}
+                delete {firstjoinevent}
+                delete {leaveevent}
+                delete {leavemsgevent}
+                delete {deathevent}
+                delete {deathmsg}
+                open (metadata tag "skcreatorhome" of player) to player
+            else:
+                send "&9SkCreator> &7You have not specified a script!"
+        if index of event-slot is 38:
+            send "&9SkCreator> &7Resetting the player events creator!"
+            delete {joinmsg}
+            delete {joinactionmsg}
+            delete {firstjoinmsg}
+            delete {firstjoinactionmsg}
+            delete {joinscript}
+            delete {joinevent}
+            delete {firstjoinevent}
+            delete {leavemsgevent}
+            delete {leaveevent}
+            delete {deathevent}
+            delete {deathmsg}
+            send "&9SkCreator> &7Reset the player events creator!"
+            wait 5 ticks 
+            send "&c&oYou need to reopen the player events creator!"
+            open (metadata tag "skcreatorhome" of player) to player 
+        if index of event-slot is 40:
+            send "&9SkCreator> &7Sending you to the home directory!"
+            open (metadata tag "skcreatorhome" of player) to player 
+        if index of event-slot is 10:
+            send "&9SkCreator> &7Added the Join Event to the list of things!"
+            set {joinevent} to "True"
+            open (metadata tag "skcreatorhome" of player) to player
+            send "&9SkCreator> &7Reopen the player events creator to make sure it got added!"
+        if index of event-slot is 13:
+            send "&9SkCreator> &7Added the First Join Event to the list of things!"
+            set {firstjoinevent} to "True"
+            open (metadata tag "skcreatorhome" of player) to player
+            send "&9SkCreator> &7Reopen the player events creator to make sure it got added!"
+        if index of event-slot is 20:
+            send "&9SkCreator> &7Added the Leave Event to the list of things!"
+            set {leaveevent} to "True"
+            open (metadata tag "skcreatorhome" of player) to player
+            send "&9SkCreator> &7Reopen the player events creator to make sure it got added!"
+        if index of event-slot is 11:
+            if metadata "joinmsg" of player is not set:
+                close player's inventory 
+                send "&9SkCreator> &7Please type the join message you want to be given in the chat:"
+                set metadata "joinmsg" of player to true
+            else:
+                send "&9SkCreator> &7You are already adding in an a join message!"
+        if index of event-slot is 12:
+            if metadata "joinmsgevent" of player is not set:
+                close player's inventory 
+                send "&9SkCreator> &7Please type the join event message you want in chat:"
+                send "       &7&oExample: [&a&l+&7] %player%"
+                set metadata "joinmsgevent" of player to true
+            else:
+                send "&9SkCreator> &7You are already adding in an a join event message!"
+        if index of event-slot is 14:
+            if metadata "firstjoinmsg" of player is not set:
+                close player's inventory 
+                send "&9SkCreator> &7Please type the first join message you want to be given in the chat:"
+                set metadata "firstjoinmsg" of player to true
+            else:
+                send "&9SkCreator> &7You are already adding in an a first join message!"
+        if index of event-slot is 15:
+            if metadata "firstjoinmsgevent" of player is not set:
+                close player's inventory 
+                send "&9SkCreator> &7Please type the join event message you want in chat:"
+                send "       &7&oExample: [&a&l+&7] %player%"
+                set metadata "firstjoinmsgevent" of player to true
+            else:
+                send "&9SkCreator> &7You are already adding in an a first join event message!"
+        if index of event-slot is 21:
+            if metadata "leavemsgevent" of player is not set:
+                close player's inventory 
+                send "&9SkCreator> &7Please type the leave event message you want in chat:"
+                send "       &7&oExample: [&c&l-&7] %player%"
+                set metadata "leavemsgevent" of player to true
+            else:
+                send "&9SkCreator> &7You are already adding in an a leave event message!"
+        if index of event-slot is 22:
+            send "&9SkCreator> &7Added the Death Event to the list of things!"
+            set {deathevent} to "True"
+            open (metadata tag "skcreatorhome" of player) to player
+            send "&9SkCreator> &7Reopen the player events creator to make sure it got added!"
+        if index of event-slot is 23:
+            if metadata "deathmsg" of player is not set:
+                close player's inventory 
+                send "&9SkCreator> &7Please type the death event message you want in chat:"
+                send "       &7&oExample: &c&lDEATH &c%player%"
+                set metadata "deathmsg" of player to true
+            else:
+                send "&9SkCreator> &7You are already adding in an a death event message!"
+        if index of event-slot is 16:
+            if metadata "joinscript" of player is not set:
+                close player's inventory 
+                send "&9SkCreator> &7Please type the script file name in the chat:"
+                set metadata "joinscript" of player to true
+            else:
+                send "&9SkCreator> &7You are already setting the script name!"
+
+    if event-inventory = (metadata tag "skcmdcreator" of player):
+        cancel event
+        if index of event-slot is 40:
+            send "&9SkCreator> &7Sending you to the home directory!"
+            open (metadata tag "skcreatorhome" of player) to player 
+        if index of event-slot is 42:
+            if {script} is set:
+                close player's inventory 
+                send "&9SkCreator> &7Creating the command %{command}% with all its attributes please wait..."
+                append " " to file path "plugins/Skript/scripts/%{script}%.sk"
+                wait 3 seconds 
+                append "command /%{command}%:" to file path "plugins/Skript/scripts/%{script}%.sk"
+                wait 1 second
+                if {permission} is set:
+                    append "    permission: %{permission}%" to file path "plugins/Skript/scripts/%{script}%.sk"
+                wait 1 second
+                if {permissionmsg} is set:
+                    append "    permission message: %{permissionmsg}%" to file path "plugins/Skript/scripts/%{script}%.sk"
+                wait 1 second
+                if {cooldown} is set:
+                    append "    cooldown: %{cooldown}%" to file path "plugins/Skript/scripts/%{script}%.sk"
+                wait 1 second
+                if {cooldownmsg} is set:
+                    append "    cooldown message: %{cooldownmsg}%" to file path "plugins/Skript/scripts/%{script}%.sk"
+                wait 1 second 
+                append "    trigger:" to file path "plugins/Skript/scripts/%{script}%.sk"
+                wait 1 second 
+                if {cmdmsg} is set:
+                    append "        send ""%{cmdmsg}%""" to file path "plugins/Skript/scripts/%{script}%.sk"
+                wait 1 second 
+                if {broadcast} is set:
+                    append "        broadcast ""%{broadcast}%""" to file path "plugins/Skript/scripts/%{script}%.sk"
+                wait 1 second 
+                if {item} is set:
+                    append "        give player %{item}%" to file path "plugins/Skript/scripts/%{script}%.sk"
+                if {item2} is set:
+                    append "        give player %{item2}%" to file path "plugins/Skript/scripts/%{script}%.sk"
+                wait 1 second 
+                send "&9SkCreator> &7All data was shipped off to the script!"
+                delete {command}
+                delete {permission}
+                delete {permissionmsg}
+                delete {cooldown}
+                delete {cooldownmsg}
+                delete {script}
+                delete {cmdmsg}
+                delete {broadcast}
+                delete {item}
+                delete {item2}
+                open (metadata tag "skcreatorhome" of player) to player
+            else:
+                send "&9SkCreator> &7You have not specified a script!"
+        if index of event-slot is 38:
+            send "&9SkCreator> &7Resetting the command creator!"
+            delete {command}
+            delete {permission}
+            delete {permissionmsg}
+            delete {cooldown}
+            delete {cooldownmsg}
+            delete {script}
+            delete {cmdmsg}
+            delete {broadcast}
+            delete {item}
+            delete {item2}
+            send "&9SkCreator> &7Reset the command creator!"
+            wait 5 ticks 
+            send "&c&oYou need to reopen the command creator!"
+            open (metadata tag "skcreatorhome" of player) to player 
+        if index of event-slot is 15:
+            send "&9SkCreator> &7You can not modify this or else your command wont work!"
+        if index of event-slot is 10:
+            if metadata "cmd1" of player is not set:
+                close player's inventory 
+                send "&9SkCreator> &7Please type the name out of the command in the chat:"
+                set metadata "cmd1" of player to true
+            else:
+                send "&9SkCreator> &7You are already creating a command"
+        if index of event-slot is 11:
+            if metadata "cmd2" of player is not set:
+                close player's inventory 
+                send "&9SkCreator> &7Please type the name out of the permission in the chat:"
+                set metadata "cmd2" of player to true
+            else:
+                send "&9SkCreator> &7You are already creating a permission"
+        if index of event-slot is 12:
+            if metadata "cmd3" of player is not set:
+                close player's inventory 
+                send "&9SkCreator> &7Please type the permission message in the chat:"
+                set metadata "cmd3" of player to true
+            else:
+                send "&9SkCreator> &7You are already creating a permission"
+        if index of event-slot is 13:
+            if metadata "cmd4" of player is not set:
+                close player's inventory 
+                send "&9SkCreator> &7Please type the cooldown in the chat:"
+                set metadata "cmd4" of player to true
+            else:
+                send "&9SkCreator> &7You are already creating a cooldown"
+        if index of event-slot is 14:
+            if metadata "cmd5" of player is not set:
+                close player's inventory 
+                send "&9SkCreator> &7Please type the cooldown message in the chat:"
+                set metadata "cmd5" of player to true
+            else:
+                send "&9SkCreator> &7You are already creating a cooldown message"
+        if index of event-slot is 16:
+            if metadata "cmd6" of player is not set:
+                close player's inventory 
+                send "&9SkCreator> &7Please type the script file name in the chat:"
+                set metadata "cmd6" of player to true
+            else:
+                send "&9SkCreator> &7You are already setting the script name!"
+        if index of event-slot is 20:
+            if metadata "cmdmsg" of player is not set:
+                close player's inventory 
+                send "&9SkCreator> &7Please type the message you want to be sent to the executor in the chat:"
+                set metadata "cmdmsg" of player to true
+            else:
+                send "&9SkCreator> &7You are already creating a message!"
+        if index of event-slot is 21:
+            if metadata "cmdbroadcast" of player is not set:
+                close player's inventory 
+                send "&9SkCreator> &7Please type the broadcast you want to be sent to the executor in the chat:"
+                set metadata "cmdbroadcast" of player to true
+            else:
+                send "&9SkCreator> &7You are already creating a message!"
+        if index of event-slot is 22:
+            if metadata "items" of player is not set:
+                close player's inventory 
+                send "&9SkCreator> &7Please type the item you want to be given to the executor in the chat:"
+                set metadata "items" of player to true
+            else:
+                send "&9SkCreator> &7You are already adding in an item!"
+        if index of event-slot is 23:
+            if metadata "items2" of player is not set:
+                close player's inventory 
+                send "&9SkCreator> &7Please type the item you want to be given to the executor in the chat:"
+                send "     &7&oExample: stone with name ""&bTest"""
+                set metadata "items2" of player to true
+            else:
+                send "&9SkCreator> &7You are already adding in an item!"
+
+on chat:
+    metadata "guiclickmsg" of player is true:
+        cancel event 
+        send "&9SkCreator> &7Set a clicked slot message to %message%!"
+        set {guiclickmsg} to message 
+        wait 2 ticks
+        delete metadata "guiclickmsg" of player 
+        open (metadata tag "skcreatorhome" of player) to player
+        send "&9SkCreator> &7Reopen the gui clicked event creator to make sure it got added!"
+    metadata "guiclickclose" of player is true:
+        cancel event 
+        send "&9SkCreator> &7Set the close gui slot to %message%!"
+        set {guiclickclose} to message 
+        wait 2 ticks
+        delete metadata "guiclickclose" of player 
+        open (metadata tag "skcreatorhome" of player) to player
+        send "&9SkCreator> &7Reopen the gui clicked event creator to make sure it got added!"
+    metadata "guiclickevents" of player is true:
+        cancel event 
+        send "&9SkCreator> &7Set the GUI slot to %message%!"
+        set {guiclickevents} to message 
+        wait 2 ticks
+        delete metadata "guiclickevents" of player 
+        open (metadata tag "skcreatorhome" of player) to player
+        send "&9SkCreator> &7Reopen the gui clicked event creator to make sure it got added!"
+    metadata "guiitemlore" of player is true:
+        cancel event 
+        send "&9SkCreator> &7Set the GUI Item Lore to %message%!"
+        set {guiitemlore} to message 
+        wait 2 ticks
+        delete metadata "guiitemlore" of player 
+        open (metadata tag "skcreatorhome" of player) to player
+        send "&9SkCreator> &7Reopen the gui creator to make sure it got added!"
+    metadata "guiitemslot" of player is true:
+        cancel event 
+        send "&9SkCreator> &7Set the GUI Item Slot to be in slot %message%!"
+        set {guiitemslot} to message 
+        wait 2 ticks
+        delete metadata "guiitemslot" of player 
+        open (metadata tag "skcreatorhome" of player) to player
+        send "&9SkCreator> &7Reopen the gui creator to make sure it got added!"
+    metadata "guiitemname" of player is true:
+        cancel event 
+        send "&9SkCreator> &7You have set the GUI ITEM Name to %message%!!!"
+        set {guiitemname} to message 
+        wait 2 ticks
+        delete metadata "guiitemname" of player 
+        open (metadata tag "skcreatorhome" of player) to player
+        send "&9SkCreator> &7Reopen the GUI Creator to make sure it got added!"
+    metadata "guiitem" of player is true:
+        cancel event 
+        send "&9SkCreator> &7You have set the GUI ITEM to %message%!!!"
+        set {guiitem} to message 
+        wait 2 ticks
+        delete metadata "guiitem" of player 
+        open (metadata tag "skcreatorhome" of player) to player
+        send "&9SkCreator> &7Reopen the GUI Creator to make sure it got added!"
+    metadata "guiid" of player is true:
+        cancel event 
+        send "&9SkCreator> &7You have set the GUI ID successfully!!!"
+        set {guiid} to message 
+        wait 2 ticks
+        delete metadata "guiid" of player 
+        open (metadata tag "skcreatorhome" of player) to player
+        send "&9SkCreator> &7Reopen the GUI Creator to make sure it got added!"
+    metadata "guiscript" of player is true:
+        cancel event 
+        send "&9SkCreator> &7You have set the GUI Script successfully!!!"
+        set {guiscript} to message 
+        wait 2 ticks
+        delete metadata "guiscript" of player 
+        open (metadata tag "skcreatorhome" of player) to player
+        send "&9SkCreator> &7Reopen the GUI Creator to make sure it got added!"
+    metadata "guicloseslot" of player is true:
+        cancel event 
+        send "&9SkCreator> &7Set the GUI Closer to be in slot %message%!"
+        set {guicloseslot} to message 
+        wait 2 ticks
+        delete metadata "guicloseslot" of player 
+        open (metadata tag "skcreatorhome" of player) to player
+        send "&9SkCreator> &7Reopen the gui creator to make sure it got added!"
+    metadata "guifiller" of player is true:
+        cancel event 
+        send "&9SkCreator> &7Added %message% slots to the gui filler!"
+        set {guifiller} to message 
+        wait 2 ticks
+        delete metadata "guifiller" of player 
+        open (metadata tag "skcreatorhome" of player) to player
+        send "&9SkCreator> &7Reopen the gui creator to make sure it got added!"
+    metadata "guislots" of player is true:
+        cancel event 
+        send "&9SkCreator> &7Added %message% rows to the gui!"
+        set {guislots} to message 
+        wait 2 ticks
+        delete metadata "guislots" of player 
+        open (metadata tag "skcreatorhome" of player) to player
+        send "&9SkCreator> &7Reopen the gui creator to make sure it got added!"
+    metadata "guiname" of player is true:
+        cancel event 
+        send "&9SkCreator> &7Created a GUI with the name %message%!"
+        set {guiname} to message 
+        wait 2 ticks
+        delete metadata "guiname" of player 
+        open (metadata tag "skcreatorhome" of player) to player
+        send "&9SkCreator> &7Reopen the gui creator to make sure it got added!"
+    metadata "deathmsg" of player is true:
+        cancel event 
+        send "&9SkCreator> &7Players can now get the death event message %message%!"
+        set {deathmsg} to message 
+        wait 2 ticks
+        delete metadata "deathmsg" of player 
+        open (metadata tag "skcreatorhome" of player) to player
+        send "&9SkCreator> &7Reopen the player events creator to make sure it got added!"
+    metadata "leavemsgevent" of player is true:
+        cancel event 
+        send "&9SkCreator> &7Players can now get the leave event message %message%!"
+        set {leavemsgevent} to message 
+        wait 2 ticks
+        delete metadata "leavemsgevent" of player 
+        open (metadata tag "skcreatorhome" of player) to player
+        send "&9SkCreator> &7Reopen the player events creator to make sure it got added!"
+    metadata "joinscript" of player is true:
+        cancel event 
+        send "&9SkCreator> &7You have set the join script successfully!!!"
+        set {joinscript} to message 
+        wait 2 ticks
+        delete metadata "joinscript" of player 
+        open (metadata tag "skcreatorhome" of player) to player
+        send "&9SkCreator> &7Reopen the player events creator to make sure it got added!"
+    metadata "firstjoinmsg" of player is true:
+        cancel event 
+        send "&9SkCreator> &7Players can now get the first join message %message%!"
+        set {firstjoinmsg} to message 
+        wait 2 ticks
+        delete metadata "firstjoinmsg" of player 
+        open (metadata tag "skcreatorhome" of player) to player
+        send "&9SkCreator> &7Reopen the player events creator to make sure it got added!"
+    metadata "firstjoinmsgevent" of player is true:
+        cancel event 
+        send "&9SkCreator> &7Players can now get the first join event message %message%!"
+        set {firstjoinactionmsg} to message 
+        wait 2 ticks
+        delete metadata "firstjoinmsgevent" of player 
+        open (metadata tag "skcreatorhome" of player) to player
+        send "&9SkCreator> &7Reopen the player events creator to make sure it got added!"
+    metadata "joinmsg" of player is true:
+        cancel event 
+        send "&9SkCreator> &7Players can now get the join message %message%!"
+        set {joinmsg} to message 
+        wait 2 ticks
+        delete metadata "joinmsg" of player 
+        open (metadata tag "skcreatorhome" of player) to player
+        send "&9SkCreator> &7Reopen the player events creator to make sure it got added!"
+    metadata "joinmsgevent" of player is true:
+        cancel event 
+        send "&9SkCreator> &7Players can now get the join event message %message%!"
+        set {joinactionmsg} to message 
+        wait 2 ticks
+        delete metadata "joinmsgevent" of player 
+        open (metadata tag "skcreatorhome" of player) to player
+        send "&9SkCreator> &7Reopen the player events creator to make sure it got added!"
+    metadata "items2" of player is true:
+        cancel event
+        send "&9SkCreator> &7Players can now get the item %message% from typing the command!"
+        set {item2} to message 
+        wait 2 ticks
+        delete metadata "items2" of player 
+        open (metadata tag "skcreatorhome" of player) to player
+        send "&9SkCreator> &7Reopen the command creator to make sure it got added!"
+    metadata "items" of player is true:
+        cancel event
+        send "&9SkCreator> &7Players can now get the item %message% from typing the command!"
+        set {item} to message 
+        wait 2 ticks
+        delete metadata "items" of player 
+        open (metadata tag "skcreatorhome" of player) to player
+        send "&9SkCreator> &7Reopen the command creator to make sure it got added!"
+    metadata "cmdbroadcast" of player is true:
+        cancel event
+        send "&9SkCreator> &7Set the broadcast to %message%!"
+        set {broadcast} to message 
+        wait 2 ticks
+        delete metadata "cmdbroadcast" of player 
+        open (metadata tag "skcreatorhome" of player) to player
+        send "&9SkCreator> &7Reopen the command creator to make sure it got added!"
+    metadata "cmdmsg" of player is true:
+        cancel event
+        send "&9SkCreator> &7Set the message to %message%!"
+        set {cmdmsg} to message 
+        wait 2 ticks
+        delete metadata "cmdmsg" of player 
+        open (metadata tag "skcreatorhome" of player) to player
+        send "&9SkCreator> &7Reopen the command creator to make sure it got added!"
+    metadata "cmd6" of player is true:
+        if file path "plugins/Skript/scripts/%message%.sk" is missing:
+            cancel event 
+            send "&9SkCreator> &7This file does not exist!"
+        else:
+            cancel event
+            send "&9SkCreator> &7Set the file name %message%!"
+            set {script} to message 
+            wait 2 ticks
+            delete metadata "cmd6" of player 
+            open (metadata tag "skcreatorhome" of player) to player
+            send "&9SkCreator> &7Reopen the command creator to make sure it got added!"
+    metadata "cmd5" of player is true:
+        cancel event
+        send "&9SkCreator> &7Created the cooldown message %message%!"
+        set {cooldownmsg} to message 
+        wait 2 ticks
+        delete metadata "cmd5" of player 
+        open (metadata tag "skcreatorhome" of player) to player
+        send "&9SkCreator> &7Reopen the command creator to make sure it got added!"
+    metadata "cmd4" of player is true:
+        cancel event
+        send "&9SkCreator> &7Created the cooldown %message%!"
+        set {cooldown} to message 
+        wait 2 ticks
+        delete metadata "cmd4" of player 
+        open (metadata tag "skcreatorhome" of player) to player
+        send "&9SkCreator> &7Reopen the command creator to make sure it got added!"
+    metadata "cmd3" of player is true:
+        cancel event
+        send "&9SkCreator> &7Created the permission message %message%!"
+        set {permissionmsg} to message 
+        wait 2 ticks
+        delete metadata "cmd3" of player 
+        open (metadata tag "skcreatorhome" of player) to player
+        send "&9SkCreator> &7Reopen the command creator to make sure it got added!"
+    metadata "cmd2" of player is true:
+        cancel event
+        send "&9SkCreator> &7Created the permission %message%!"
+        set {permission} to message 
+        wait 2 ticks
+        delete metadata "cmd2" of player 
+        open (metadata tag "skcreatorhome" of player) to player
+        send "&9SkCreator> &7Reopen the command creator to make sure it got added!"
+    metadata "cmd1" of player is true:
+        cancel event
+        send "&9SkCreator> &7Created the command %message%!"
+        set {command} to message 
+        wait 2 ticks
+        delete metadata "cmd1" of player 
+        open (metadata tag "skcreatorhome" of player) to player
+        send "&9SkCreator> &7Reopen the command creator to make sure it worked!"
+    metadata "createscript" of player is true:
+        if file path "plugins/Skript/scripts/%message%.sk" is missing:
+            cancel event
+            send "&9SkCreator> &7Creating the file: %message%.sk!"
+            create file path "plugins/Skript/scripts/%message%.sk"
+            send "&9SkCreator> &7Created the file: %message%.sk!"
+            delete metadata "createscript" of player
+        else:
+            send "&9SkCreator> &7A script with that name already exists try again!"
+    metadata "deletescript" of player is true:
+        if file path "plugins/Skript/scripts/%message%.sk" is missing:
+            cancel event 
+            send "&9SkCreator> &7You can not delete a file that doesn't exist!"
+        else:
+            cancel event 
+            send "&9SkCreator> &7Deleting the file: %message%.sk!"
+            delete file path "plugins/Skript/scripts/%message%.sk"
+            send "&9SkCreator> &7Deleted the file: %message%.sk!"
+            delete metadata "deletescript" of player 
+            open (metadata tag "skcreatorhome" of player) to player 
+    metadata "reloadscript" of player is true:
+        if file path "plugins/Skript/scripts/%message%.sk" is missing:
+            cancel event 
+            send "&9SkCreator> &7You can not reload a file that doesn't exist!"
+        else:
+            cancel event 
+            send "&9SkCreator> &7Reloading the file: %message%.sk!"
+            execute console command "sk reload %message%.sk"
+            send "&9SkCreator> &7Reloaded the file: %message%.sk!"
+            delete metadata "reloadscript" of player 
+            open (metadata tag "skcreatorhome" of player) to player
